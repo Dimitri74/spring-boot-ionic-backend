@@ -4,7 +4,7 @@
 package com.cursomc.services.exceptions;
 
 /**
- * @author dell
+ * @author Marcus Dimitri
  *
  */
 public class DataIntegrityException extends RuntimeException {

@@ -40,7 +40,6 @@ public class CategoriaRecurso {
 	}
 
 	// Para Testes CRUD Para fins que serve como base para o incio de um implementação
-
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody Categoria obj) {
 		obj = service.insert(obj);
@@ -55,6 +54,14 @@ public class CategoriaRecurso {
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
+	
+	// Para Testes CRUD Para fins que serve como base para o incio de um implementação
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
 	
 	
 

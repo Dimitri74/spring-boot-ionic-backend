@@ -47,6 +47,7 @@ public class CategoriaServico {
 		return repo.save(obj);
 	}
 
+	// Para Testes
 	public void delete(Integer id) {
 		find(id);
 		try {
@@ -55,6 +56,13 @@ public class CategoriaServico {
 			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
 
 	public List<Categoria> findAll() {
 		return repo.findAll();
