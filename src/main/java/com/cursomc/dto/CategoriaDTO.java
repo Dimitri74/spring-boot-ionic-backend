@@ -5,6 +5,8 @@ package com.cursomc.dto;
 
 import java.io.Serializable;
 
+import com.cursomc.domain.Categoria;
+
 
 /**
  * @author Marcus Dimitri
@@ -19,6 +21,11 @@ public class CategoriaDTO implements Serializable {
 	
 	
 	public CategoriaDTO() {
+	}
+	
+	public CategoriaDTO(Categoria obj) {
+		id = obj.getId();
+		nome = obj.getNome();
 	}
 
 	public Integer getId() {

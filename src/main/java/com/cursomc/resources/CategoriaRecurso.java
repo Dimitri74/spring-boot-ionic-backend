@@ -38,34 +38,48 @@ public class CategoriaRecurso {
 		return ResponseEntity.ok().body(obj);
 
 	}
+	
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<Categoria> list = service.findAll();
+		List<CategoriaDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());  
+		return ResponseEntity.ok().body(listDto);
+	}
 
-	// Para Testes CRUD Para fins que serve como base para o incio de um implementação
+	// Para Testes CRUD Para fins que serve como base para o incio de um
+	// implementação
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody Categoria obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
-	// Para Testes CRUD Para fins que serve como base para o incio de um implementação
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Categoria obj , @PathVariable Integer id) {
+
+	// Para Testes CRUD Para fins que serve como base para o incio de um
+	// implementação
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) {
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
-	
-	// Para Testes CRUD Para fins que serve como base para o incio de um implementação
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+
+	// Para Testes CRUD Para fins que serve como base para o incio de um
+	// implementação
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	
-	
 
-	
+	// Para Testes CRUD Para fins que serve como base para o incio de um
+	// implementação
+	//@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<Categoria>> findTudo() {
+		List<Categoria> list = service.findAll();
+		return ResponseEntity.ok().body(list);
+	}
 
 	// Codigos para fins de teste. Serve como base para o inicio de implementação.
 
