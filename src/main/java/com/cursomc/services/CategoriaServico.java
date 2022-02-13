@@ -16,6 +16,7 @@ import com.cursomc.services.exceptions.DataIntegrityException;
 import com.cursomc.services.exceptions.ObjectNotFoundException;
 import com.cursomc.repositories.CategoriaRepositorio;
 import com.cursomc.domain.Categoria;
+import com.cursomc.domain.Cliente;
 import com.cursomc.dto.CategoriaDTO;
 
 /**
@@ -39,13 +40,20 @@ public class CategoriaServico {
 		obj.setId(null);
 		return repo.save(obj);
 	}
+	
+	
+	public Categoria update(Categoria obj) {
+		Categoria newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
 
 	// Para Testes
-	public Categoria update(Categoria obj) {
-		find(obj.getId());
-
-		return repo.save(obj);
-	}
+	/*
+	 * public Categoria update(Categoria obj) { find(obj.getId());
+	 * 
+	 * return repo.save(obj); }
+	 */
 
 	// Para Testes
 	public void delete(Integer id) {
