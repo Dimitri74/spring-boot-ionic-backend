@@ -89,6 +89,7 @@ public class ClienteServico   {
 		}
 		if (objDto.getTelefone3()!=null) {
 			cli.getTelefones().add(objDto.getTelefone3());
+			
 		}
 		return cli;
 	}
