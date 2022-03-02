@@ -55,7 +55,6 @@ public class ItemPedido implements Serializable {
 		id.setPedido(pedido);
 	}
 
-	
 	public Produto getProduto() {
 		return id.getProduto();
 	}
@@ -134,6 +133,7 @@ public class ItemPedido implements Serializable {
 		builder.append(nf.format(getSubTotal()));
 		builder.append("\n");
 		return builder.toString();
+
 	}
 
 }
