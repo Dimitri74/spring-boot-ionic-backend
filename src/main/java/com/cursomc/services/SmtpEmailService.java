@@ -12,6 +12,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import com.cursomc.domain.Cliente;
 import com.cursomc.domain.Pedido;
 
 /**
@@ -45,6 +46,12 @@ public class SmtpEmailService extends AbstractEmailService {
 
 	@Override
 	public void sendOrderConfirmationHtmlEmail(Pedido obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sendNewPasswordEmail(Cliente cliente, String newPass) {
 		// TODO Auto-generated method stub
 		
 	}

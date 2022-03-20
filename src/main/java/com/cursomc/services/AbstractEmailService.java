@@ -63,6 +63,8 @@ public abstract class AbstractEmailService implements EmailService {
 
 	}
 
+	//TIVE PROBLEMAS COM O GMAIL 
+	//TODO Verificar outro servidor de emails para atender a funcionalidade
 	//@Override
 	/*public void sendOrderConfirmationHtmlEmail(Pedido obj) {
 		try {
@@ -89,5 +91,12 @@ public abstract class AbstractEmailService implements EmailService {
 	 * 
 	 * return mm; }
 	 */
+	
+	@Override
+	public void sendNewPasswordEmail(Cliente cliente , String newPass) {
+		SimpleMailMessage sm = prepareNewPasswordEmail(cliente , newPass);
+		sendEmail(sm);
+	}
+
 
 }
