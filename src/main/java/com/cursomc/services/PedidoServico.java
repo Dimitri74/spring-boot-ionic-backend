@@ -21,6 +21,7 @@ import com.cursomc.domain.enums.EstadoPagamento;
 import com.cursomc.repositories.ItemPedidoRepositorio;
 import com.cursomc.repositories.PagamentoRepositorio;
 import com.cursomc.repositories.PedidoRepositorio;
+import com.cursomc.security.UserSS;
 import com.cursomc.services.exceptions.AuthorizationException;
 import com.cursomc.services.exceptions.ObjectNotFoundException;
 
@@ -82,6 +83,16 @@ public class PedidoServico {
 		// System.out.println(obj);
 		 emailService.sendOrderConfirmationHtmlEmail(obj);
 		return obj;
+	}
+	
+	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		Cliente cliente =  clienteService.find(user.getId());
+		return repo.findByCliente(cliente, pageRequest);
 	}
 
 }
