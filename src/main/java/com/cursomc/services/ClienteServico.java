@@ -48,16 +48,15 @@ public class ClienteServico {
 
 	@Autowired
 	private S3Service s3Service;
-	
 
-	 @Autowired
-	 private ImageService imageService;
+	@Autowired
+	private ImageService imageService;
 
-	 @Value("${img.prefix.client.profile}")
-	 private String prefix;
+	@Value("${img.prefix.client.profile}")
+	private String prefix;
 
-	//@Value("${img.profile.size}")
-	//private Integer size;
+	@Value("${img.profile.size}")
+	private Integer size;
 
 	public Cliente find(Integer id) {
 
@@ -124,27 +123,25 @@ public class ClienteServico {
 		newObj.setNome(obj.getNome());
 		newObj.setEmail(obj.getEmail());
 	}
-	
-	
+
 	public URI uploadProfilePicture(MultipartFile multipartFile) {
 		UserSS user = UserService.authenticated();
 		if (user == null) {
 			throw new AuthorizationException("Acesso negado");
 		}
-		
+
 		BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
 		
+		jpgImage = imageService.cropSquare(jpgImage);
+		jpgImage = imageService.resize(jpgImage, size);
+
 		String fileName = prefix + user.getId() + ".jpg";
-		//jpgImage = imageService.cropSquare(jpgImage);
-		//jpgImage = imageService.resize(jpgImage, size);
-				
 		
+
 		return s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), fileName, "image");
 	}
 
-	
-
-	//exemplo  salvar a url no bd INFO
+	// exemplo salvar a url no bd INFO
 	/*
 	 * public URI uploadProfilePicture(MultipartFile multipartFile) {
 	 * 
