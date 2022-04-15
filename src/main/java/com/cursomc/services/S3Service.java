@@ -23,7 +23,6 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.cursomc.services.exceptions.FileException;
 
-
 /**
  * @author Marcus Dimitri
  *
@@ -39,46 +38,50 @@ public class S3Service {
 	@Value("${s3.bucket}")
 	private String bucketName;
 
-	/*
-	 * public URI uploadFile(MultipartFile multipartFile) { try { String fileName =
-	 * multipartFile.getOriginalFilename(); InputStream is =
-	 * multipartFile.getInputStream(); String contentType =
-	 * multipartFile.getContentType(); return uploadFile(is, fileName, contentType);
-	 * } catch (IOException e) { throw new FileException("Erro de IO: " +
-	 * e.getMessage()); } }
-	 * 
-	 * public URI uploadFile(InputStream is, String fileName, String contentType) {
-	 * try { ObjectMetadata meta = new ObjectMetadata();
-	 * meta.setContentType(contentType); LOG.info("Iniciando upload");
-	 * s3client.putObject(bucketName, fileName, is, meta);
-	 * LOG.info("Upload finalizado"); return s3client.getUrl(bucketName,
-	 * fileName).toURI(); } catch (URISyntaxException e) { throw new
-	 * FileException("Erro ao converter URL para URI"); } }
-	 */
-	public void uploadFile(String localFilePath) {
-		
+	public URI uploadFile(MultipartFile multipartFile) {
 		try {
-			File file = new File(localFilePath);
-			LOG.info("Iniciando upload");
-			s3client.putObject(new PutObjectRequest(bucketName, "Teste", file));
-			LOG.info("Upload finalizado");
-			
-		} catch (AmazonServiceException e) {
-			
-			LOG.info("AmazonServiceException: " + e.getErrorMessage());
-			LOG.info("Status Code: " + e.getErrorCode());
-		} 
-		
-		catch(AmazonClientException c) {
-			
-			LOG.info("AmazonClientException: " + c.getMessage());
-			LOG.info("Erro Cause : " + c.getCause());
-			
-			
-			
-			
+			String fileName = multipartFile.getOriginalFilename();
+			InputStream is = multipartFile.getInputStream();
+			String contentType = multipartFile.getContentType();
+			return uploadFile(is, fileName, contentType);
+		} catch (IOException e) {
+			throw new FileException("Erro de IO: " + e.getMessage());
 		}
-		
 	}
 
+	public URI uploadFile(InputStream is, String fileName, String contentType) {
+		try {
+			ObjectMetadata meta = new ObjectMetadata();
+			meta.setContentType(contentType);
+			LOG.info("Iniciando upload");
+			s3client.putObject(bucketName, fileName, is, meta);
+			LOG.info("Upload finalizado");
+			return s3client.getUrl(bucketName, fileName).toURI();
+		} catch (URISyntaxException e) {
+			throw new FileException("Erro ao converter URL para URI");
+		}
+	}
+
+	// UPLOAD LOCAL
+	/*
+	 * public void uploadFile(String localFilePath) {
+	 * 
+	 * try { File file = new File(localFilePath); LOG.info("Iniciando upload");
+	 * s3client.putObject(new PutObjectRequest(bucketName, "Teste", file));
+	 * LOG.info("Upload finalizado");
+	 * 
+	 * } catch (AmazonServiceException e) {
+	 * 
+	 * LOG.info("AmazonServiceException: " + e.getErrorMessage());
+	 * LOG.info("Status Code: " + e.getErrorCode()); }
+	 * 
+	 * catch (AmazonClientException c) {
+	 * 
+	 * LOG.info("AmazonClientException: " + c.getMessage());
+	 * LOG.info("Erro Cause : " + c.getCause());
+	 * 
+	 * }
+	 * 
+	 * }
+	 */
 }
