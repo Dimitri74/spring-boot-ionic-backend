@@ -57,7 +57,7 @@ public class ClienteRecurso {
 	
 	@RequestMapping(value="/email", method=RequestMethod.GET)
 	public ResponseEntity<Cliente> find(@RequestParam(value="value") String email) {
-		Cliente obj = null; //= service.findByEmail(email);
+		Cliente obj = service.findByEmail(email);
 		return ResponseEntity.ok().body(obj);
 	}
 	

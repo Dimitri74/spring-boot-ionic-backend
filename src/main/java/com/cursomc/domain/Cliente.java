@@ -46,7 +46,7 @@ public class Cliente implements Serializable {
 	private String senha;
 
 	//@JsonManagedReference
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	@ElementCollection
