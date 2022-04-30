@@ -99,6 +99,8 @@ public class ClienteServico {
 	public List<Cliente> findAll() {
 		return repo.findAll();
 	}
+	
+	//TODO VERIFICAR 
 
 	public Cliente findByEmail(String email) {
 
